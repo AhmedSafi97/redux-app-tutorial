@@ -8,7 +8,12 @@ import {
 
 import { Navbar } from './app/Navbar'
 
-import { PostsList, AddPostForm, SinglePostPage } from './features/posts'
+import {
+  PostsList,
+  AddPostForm,
+  SinglePostPage,
+  EditPostForm,
+} from './features/posts'
 
 function App() {
   return (
@@ -22,8 +27,11 @@ function App() {
               <PostsList />
             </>
           </Route>
-          <Route path="/posts/:id">
-            {(props) => <SinglePostPage postId={props.match.params.id} />}
+          <Route path="/posts/:postId">
+            <SinglePostPage />
+          </Route>
+          <Route path="/edit-post/:postId">
+            <EditPostForm />
           </Route>
           <Redirect to="/" />
         </Switch>
