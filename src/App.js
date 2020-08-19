@@ -8,7 +8,7 @@ import {
 
 import { Navbar } from './app/Navbar'
 
-import { PostsList, AddPostForm } from './features/posts'
+import { PostsList, AddPostForm, SinglePostPage } from './features/posts'
 
 function App() {
   return (
@@ -16,16 +16,15 @@ function App() {
       <Navbar />
       <div className="App">
         <Switch>
-          <Route
-            exact
-            path="/"
-            render={() => (
-              <>
-                <AddPostForm />
-                <PostsList />
-              </>
-            )}
-          />
+          <Route exact path="/">
+            <>
+              <AddPostForm />
+              <PostsList />
+            </>
+          </Route>
+          <Route path="/posts/:id">
+            {(props) => <SinglePostPage postId={props.match.params.id} />}
+          </Route>
           <Redirect to="/" />
         </Switch>
       </div>
