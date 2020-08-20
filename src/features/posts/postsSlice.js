@@ -14,7 +14,13 @@ const postsSlice = createSlice({
         state.push(action.payload)
       },
       prepare: (userId, title, content) => ({
-        payload: { id: nanoid(), title, content, user: userId },
+        payload: {
+          id: nanoid(),
+          date: new Date().toISOString(),
+          title,
+          content,
+          user: userId,
+        },
       }),
     },
     postUpdated: {
