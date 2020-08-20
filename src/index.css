@@ -114,6 +114,7 @@ section h1 {
 
 .post-excerpt {
   padding: 0.25rem 0.25rem;
+  margin: 1rem 0 1rem 0;
   border: 1px solid rgb(177, 174, 174);
   border-radius: 7px;
 }
