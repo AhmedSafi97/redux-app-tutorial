@@ -7,6 +7,7 @@ const initialState = [
     title: 'First Post!',
     content: 'Hello World!',
     user: '1',
+    reactions: { thumbsUp: 0, hooray: 0, heart: 0, rocket: 0, eyes: 0 },
   },
   {
     id: 'YkHwHh13693yXaB0L6SnP',
@@ -14,6 +15,7 @@ const initialState = [
     title: 'Second Post',
     content: 'More text',
     user: '2',
+    reactions: { thumbsUp: 0, hooray: 0, heart: 0, rocket: 0, eyes: 0 },
   },
 ]
 
@@ -32,6 +34,7 @@ const postsSlice = createSlice({
           title,
           content,
           user: userId,
+          reactions: { thumbsUp: 0, hooray: 0, heart: 0, rocket: 0, eyes: 0 },
         },
       }),
     },
@@ -46,9 +49,19 @@ const postsSlice = createSlice({
       },
       prepare: (id, title, content) => ({ payload: { id, title, content } }),
     },
+    reactionAdded: {
+      reducer: (state, action) => {
+        const { postId, reaction } = action.payload
+        const currentPost = state.find((post) => post.id === postId)
+        if (currentPost) {
+          currentPost.reactions[reaction]++
+        }
+      },
+      prepare: (postId, reaction) => ({ payload: { postId, reaction } }),
+    },
   },
 })
 
-export const { postAdded, postUpdated } = postsSlice.actions
+export const { postAdded, postUpdated, reactionAdded } = postsSlice.actions
 
 export default postsSlice.reducer
