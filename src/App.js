@@ -15,6 +15,8 @@ import {
   EditPostForm,
 } from './features/posts'
 
+import { UserPage, UsersList } from './features/users'
+
 function App() {
   return (
     <Router>
@@ -32,6 +34,12 @@ function App() {
           </Route>
           <Route path="/edit-post/:postId">
             <EditPostForm />
+          </Route>
+          <Route path="/users/:userId">
+            <UserPage />
+          </Route>
+          <Route path="/users">
+            <UsersList />
           </Route>
           <Redirect to="/" />
         </Switch>
