@@ -8,7 +8,7 @@ export const EditPostForm = () => {
   const { postId } = useParams()
 
   const post = useSelector((state) =>
-    state.posts.find((post) => post.id === postId)
+    state.posts.data.find((post) => post.id === postId)
   )
 
   const [title, setTitle] = useState(post.title)
