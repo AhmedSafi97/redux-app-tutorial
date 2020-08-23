@@ -7,9 +7,28 @@ import { TimeAgo } from './TimeAgo'
 import { ReactionButtons } from './ReactionButtons'
 import { fetchPosts } from './postsSlice'
 
+import { selectPostById, selectPostsIds } from './postsSlice'
+
+const PostExcerpt = ({ postId }) => {
+  const post = useSelector((state) => selectPostById(state, postId))
+
+  return (
+    <article className="post-excerpt">
+      <h3>{post.title}</h3>
+      <PostAuthor userId={post.user} />
+      <TimeAgo timestamp={post.date} />
+      <p>{post.content.substring(0, 100)}</p>
+      <ReactionButtons post={post} />
+      <Link to={`/posts/${post.id}`} className="button muted-button">
+        View Post
+      </Link>
+    </article>
+  )
+}
+
 export const PostsList = () => {
   const dispatch = useDispatch()
-  const posts = useSelector((state) => state.posts.data)
+  const postsIds = useSelector(selectPostsIds)
   const postsStatus = useSelector((state) => state.posts.status)
   const error = useSelector((state) => state.posts.error)
 
@@ -24,21 +43,8 @@ export const PostsList = () => {
   if (postsStatus === 'loading') {
     content = <div className="loader">loading...</div>
   } else if (postsStatus === 'succeeded') {
-    const orderedPosts = posts
-      .slice()
-      .sort((a, b) => b.date.localeCompare(a.date))
-
-    content = orderedPosts.map((post) => (
-      <article className="post-excerpt" key={post.id}>
-        <h3>{post.title}</h3>
-        <PostAuthor userId={post.user} />
-        <TimeAgo timestamp={post.date} />
-        <p>{post.content.substring(0, 100)}</p>
-        <ReactionButtons post={post} />
-        <Link to={`/posts/${post.id}`} className="button muted-button">
-          View Post
-        </Link>
-      </article>
+    content = postsIds.map((postId) => (
+      <PostExcerpt key={postId} postId={postId} />
     ))
   } else if (postsStatus === 'failed') {
     content = <div>{error}</div>

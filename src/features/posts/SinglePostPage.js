@@ -6,11 +6,11 @@ import { PostAuthor } from './PostAuthor'
 import { TimeAgo } from './TimeAgo'
 import { ReactionButtons } from './ReactionButtons'
 
+import { selectPostById } from './postsSlice'
+
 export const SinglePostPage = () => {
   const { postId } = useParams()
-  const post = useSelector((state) =>
-    state.posts.data.find((post) => post.id === postId)
-  )
+  const post = useSelector((state) => selectPostById(state, postId))
   if (!post)
     return (
       <section>
@@ -26,7 +26,6 @@ export const SinglePostPage = () => {
         <TimeAgo timestamp={post.date} />
         <p className="post-content">{post.content}</p>
         <ReactionButtons post={post} />
-
         <Link to={`/edit-post/${post.id}`} className="button">
           Edit Post
         </Link>

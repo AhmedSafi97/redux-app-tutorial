@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk, createSelector } from '@reduxjs/toolkit'
 
 import { client } from '../../api/client'
+import { selectAllPosts } from '../posts/postsSlice'
 
 const initialState = []
 
@@ -19,7 +20,7 @@ const usersSlice = createSlice({
 })
 
 export const selectPostsByUser = createSelector(
-  [(state) => state.posts.data, (state, userId) => userId],
+  [selectAllPosts, (state, userId) => userId],
   (posts, userId) => posts.filter((post) => post.user === userId)
 )
 
