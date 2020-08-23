@@ -4,13 +4,15 @@ import { useDispatch, useSelector } from 'react-redux'
 import { addNewPost } from './postsSlice'
 import { unwrapResult } from '@reduxjs/toolkit'
 
+import { selectAllUsers } from '../users/usersSlice'
+
 export const AddPostForm = () => {
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
   const [userId, setUserId] = useState('')
   const [addRequestStatus, setAddRequestStatus] = useState('idle')
 
-  const users = useSelector((state) => state.users)
+  const users = useSelector(selectAllUsers)
 
   const dispatch = useDispatch()
 
