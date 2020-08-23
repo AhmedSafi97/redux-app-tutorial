@@ -16,6 +16,7 @@ import {
 } from './features/posts'
 
 import { UserPage, UsersList } from './features/users'
+import { NotificationsList } from './features/notifications'
 
 function App() {
   return (
@@ -40,6 +41,9 @@ function App() {
           </Route>
           <Route path="/users">
             <UsersList />
+          </Route>
+          <Route path="/notifications">
+            <NotificationsList />
           </Route>
           <Redirect to="/" />
         </Switch>
